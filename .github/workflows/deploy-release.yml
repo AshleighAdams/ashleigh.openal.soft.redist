@@ -27,7 +27,7 @@ jobs:
 
     - name: Setup NuGet
       run: |
-        dotnet nuget update source github --store-password-in-clear-text --username AshleighAdams --password ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        dotnet nuget update source github --store-password-in-clear-text --username AshleighAdams --password ${{ secrets.GITHUB_TOKEN }}
         dotnet nuget enable source github
 
     - name: Install wasm-tools workload
@@ -79,8 +79,5 @@ jobs:
 
     - name: Publish Nuget
       run: |
-        dotnet nuget push 'artifacts/*.nupkg' -k ${NUGETORG_TOKEN} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols 1
-        dotnet nuget push 'artifacts/*.nupkg' -k ${GITHUB_TOKEN} -s github --skip-duplicate --no-symbols 1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NUGETORG_TOKEN: ${{ secrets.NUGETORG_TOKEN }}
+        dotnet nuget push 'artifacts/*.nupkg' -k ${{ secrets.NUGETORG_TOKEN }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols 1
+        dotnet nuget push 'artifacts/*.nupkg' -k ${{ secrets.GITHUB_TOKEN }} -s github --skip-duplicate --no-symbols 1
