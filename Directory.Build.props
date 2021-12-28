@@ -1,0 +1,20 @@
+<!-- stop the global ones from being included -->
+<Project>
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Authors>Ashleigh Adams</Authors>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>LGPL-2.0-or-later</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/AshleighAdams/ashleigh.openal.soft.redist</PackageProjectUrl>
+  </PropertyGroup>
+
+  <!-- Automatic versioning -->
+  <PropertyGroup>
+    <VerliteMinimumVersion>1.21.1</VerliteMinimumVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Verlite.MsBuild" Version="2.0.1" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

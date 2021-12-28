@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Shared library binaries for OpenAL Soft.</Description>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/kcat/openal-soft</RepositoryUrl>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeContentInPack>true</IncludeContentInPack>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="build\ashleigh.openal.soft.redist.props" PackagePath="build\ashleigh.openal.soft.redist.props" />
+    <Content Include="runtimes\linux-x64\native\openal32.so" PackagePath="runtimes\linux-x64\native\openal32.so" />
+    <Content Include="runtimes\osx-x64\native\openal32.dylib" PackagePath="runtimes\osx-x64\native\openal32.dylib" />
+    <Content Include="runtimes\win-x64\native\openal32.dll" PackagePath="runtimes\win-x64\native\openal32.dll" />
+    <Content Include="runtimes\win-x86\native\openal32.dll" PackagePath="runtimes\win-x86\native\openal32.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".github\dependabot.yml" />
+    <None Include=".github\workflows\continuous-delivery.yml" />
+    <None Include=".github\workflows\continuous-integration.yml" />
+    <None Include=".github\workflows\deploy-release.yml" />
+  </ItemGroup>
+
+</Project>

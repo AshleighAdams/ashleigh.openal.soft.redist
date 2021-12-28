@@ -1,0 +1,61 @@
+name: Continious Integration
+
+on:
+  pull_request:
+    branches:
+      - master
+      - support/*
+    paths-ignore:
+    - docs/**
+    - README.md
+    - .editorconfig
+    - .gitattributes
+    - .gitignore
+    - .github/ISSUE_TEMPLATE/**
+    - .github/pull_request_template.md
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-test:
+    name: "Build & Test"
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    - name: Setup .NET 6 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Setup NuGet
+      run: |
+        dotnet nuget update source github --store-password-in-clear-text --username AshleighAdams --password ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        dotnet nuget enable source github
+
+    - name: Setup Verlite
+      run: |
+        verlite_version="$(grep '"Verlite\.MsBuild"' Directory.Build.props | LC_ALL=en_US.utf8 grep -Po 'Version="\K[^"]+')"
+        dotnet tool install --global Verlite.CLI --version "$verlite_version"
+        verlite . --auto-fetch --verbosity verbatim
+
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --configuration Release --no-build --logger GitHubActions
+    - name: Pack
+      run: dotnet pack -o artifacts --configuration Release --no-restore
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: |
+          artifacts/*

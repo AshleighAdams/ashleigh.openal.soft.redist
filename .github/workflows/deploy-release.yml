@@ -1,0 +1,86 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-release:
+    name: "Build & Release"
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    - name: Setup .NET 6 SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Setup NuGet
+      run: |
+        dotnet nuget update source github --store-password-in-clear-text --username AshleighAdams --password ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        dotnet nuget enable source github
+
+    - name: Install wasm-tools workload
+      run: |
+        dotnet workload install wasm-tools --skip-manifest-update
+
+    - name: Setup Verlite
+      run: |
+        verlite_version="$(grep '"Verlite\.MsBuild"' Directory.Build.props | LC_ALL=en_US.utf8 grep -Po 'Version="\K[^"]+')"
+        dotnet tool install --global Verlite.CLI --version "$verlite_version"
+        verlite . --auto-fetch --verbosity verbatim
+
+    - name: Verify tag
+      run: |
+        [[ "v$(verlite .)" == "${GITHUB_REF#refs/*/}" ]] # error out if the versions don't match
+
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --configuration Release --no-build --logger GitHubActions
+    - name: Pack
+      run: dotnet pack -o artifacts --configuration Release --no-restore
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: |
+          artifacts/*
+
+    - name: Update release
+      run: |
+        set -x
+        tag="${GITHUB_REF#refs/*/}"
+        options=()
+
+        options+=("-m" "") # leave the title and body unchanged
+
+        IFS=$'\n';
+        for asset in $(find ./artifacts -name "*.nupkg"); do
+          options+=("-a" "$asset")
+        done
+
+        hub release edit "${options[@]}" "$tag"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Publish Nuget
+      run: |
+        dotnet nuget push 'artifacts/*.nupkg' -k ${NUGETORG_TOKEN} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols 1
+        dotnet nuget push 'artifacts/*.nupkg' -k ${GITHUB_TOKEN} -s github --skip-duplicate --no-symbols 1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NUGETORG_TOKEN: ${{ secrets.NUGETORG_TOKEN }}

@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ashleigh.openal.soft.redist", "src\ashleigh.openal.soft.redist\ashleigh.openal.soft.redist.csproj", "{C4797C86-F01A-47DD-BBA2-9EE3AD417D35}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A9B8F6D-AE64-40D9-9E52-A4DDBF8FAFC7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		BSD-3Clause = BSD-3Clause
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		LICENSE = LICENSE
+		NuGet.Config = NuGet.Config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{B766B795-7DB1-4081-926E-F8466AC13053}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\continuous-delivery.yml = .github\workflows\continuous-delivery.yml
+		.github\workflows\continuous-integration.yml = .github\workflows\continuous-integration.yml
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\deploy-release.yml = .github\workflows\deploy-release.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4797C86-F01A-47DD-BBA2-9EE3AD417D35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4797C86-F01A-47DD-BBA2-9EE3AD417D35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4797C86-F01A-47DD-BBA2-9EE3AD417D35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4797C86-F01A-47DD-BBA2-9EE3AD417D35}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B766B795-7DB1-4081-926E-F8466AC13053} = {6A9B8F6D-AE64-40D9-9E52-A4DDBF8FAFC7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {114983F4-A1AF-418A-8508-C276238CC6A2}
+	EndGlobalSection
+EndGlobal
