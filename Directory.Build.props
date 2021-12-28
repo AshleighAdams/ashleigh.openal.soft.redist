@@ -6,7 +6,7 @@
     <Authors>Ashleigh Adams</Authors>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>LGPL-2.0-or-later</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/AshleighAdams/ashleigh.openal.soft.redist</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/kcat/openal-soft</PackageProjectUrl>
   </PropertyGroup>
 
   <!-- Automatic versioning -->

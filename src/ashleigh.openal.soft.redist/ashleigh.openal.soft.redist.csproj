@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Shared library binaries for OpenAL Soft.</Description>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/kcat/openal-soft</RepositoryUrl>
+    <RepositoryUrl>https://github.com/AshleighAdams/ashleigh.openal.soft.redist</RepositoryUrl>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <IncludeContentInPack>true</IncludeContentInPack>
   </PropertyGroup>
