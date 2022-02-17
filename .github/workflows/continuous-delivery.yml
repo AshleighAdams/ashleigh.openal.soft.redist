@@ -84,4 +84,4 @@ jobs:
 
     - name: Publish Nuget GitHub
       run: |
-        dotnet nuget push 'artifacts/*.nupkg' -k ${{ secrets.GITHUB_TOKEN }} -s github --skip-duplicate --no-symbols 1
+        dotnet nuget push 'artifacts/*.nupkg' -k ${{ secrets.GITHUB_TOKEN }} -s github --skip-duplicate --no-symbols
